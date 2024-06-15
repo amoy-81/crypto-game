@@ -1,9 +1,7 @@
 import User from "../user/user.model";
-
-// const userModel = require("../models/user.model");
-// const Servise = require("./servise");
-// const bcrypt = require("bcrypt");
-// const jwt = require("jsonwebtoken");
+import bcrypt from "bcrypt";
+import createHttpError from "http-errors";
+import jwt from "jsonwebtoken";
 
 class AuthService {
   #User;
@@ -11,38 +9,42 @@ class AuthService {
     this.#User = User;
   }
 
-  //   // signUp
-  //   async createUser({ username, password }) {
-  //     let user = await this.findUser(username);
-  //     if (user) throw new Error("User already exists");
+  // signUp
+  async createUser(name: string, username: string, password: string) {
+    const user = await this.#User.findOne({ username });
+    if (user) throw new createHttpError[403]("User already exists");
 
-  //     const hashPassword = await bcrypt.hash(password, 10);
-  //     let newUser = await this.#User.create({ username, password: hashPassword });
+    const hashPassword = await bcrypt.hash(password, 10);
+    const newUser = await this.#User.create({
+      name,
+      username,
+      password: hashPassword,
+    });
 
-  //     const accessToken = this.signToken({ id: newUser.id });
-  //     return { id: newUser.id, username: newUser.username, token: accessToken };
-  //   }
+    return this.loginUser(newUser.username, password);
+  }
 
-  //   // signIn
-  //   async loginUser({ username, password }) {
-  //     let user = await this.findUser(username);
-  //     if (!user) throw new Error("Username not found");
+  // login
+  async loginUser(username: string, password: string) {
+    const user = await this.#User.findOne({ username });
+    if (!user) throw new createHttpError[404]("Username not found");
 
-  //     let isValidPass = await bcrypt.compare(password, user.password);
-  //     if (!isValidPass) throw new Error("Invalid Password");
+    const isValidPass = await bcrypt.compare(password, user.password);
+    if (!isValidPass) throw new createHttpError[403]("Invalid Password");
 
-  //     const accessToken = this.signToken({ id: user.id });
-  //     return { id: user.id, username: user.username, token: accessToken };
-  //   }
+    const accessToken = this.signToken({ id: user.id });
+    return {
+      id: user.id,
+      name: user.name,
+      username: user.username,
+      token: accessToken,
+    };
+  }
 
-  //   async findUser(username) {
-  //     let user = await this.#User.findOne({ username });
-  //     return user;
-  //   }
-
-  //   signToken(payload, expiresIn = "7d") {
-  //     return jwt.sign(payload, process.env.JWT_SECRET_KEY, { expiresIn });
-  //   }
+  signToken(payload: any, expiresIn = "30d") {
+    const jwtSecretKey: any = process.env.JWT_SECRET_KEY;
+    return jwt.sign(payload, jwtSecretKey, { expiresIn });
+  }
 }
 
 export default new AuthService();

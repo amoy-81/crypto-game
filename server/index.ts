@@ -14,6 +14,9 @@ mongoose
   .then((res: any) => console.log("db connect"))
   .catch((err: any) => console.log(err));
 
+// json in body
+app.use(express.json());
+
 app.use("/api", router);
 
 // // start mining

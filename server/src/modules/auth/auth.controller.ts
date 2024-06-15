@@ -1,28 +1,49 @@
 import { Request, Response } from "express";
 import authService from "./auth.service";
+import joiUtil from "../../common/utilities/validation/joi.util";
+import autoBind from "auto-bind";
 
 class AuthController {
   #authService;
   constructor() {
+    autoBind(this);
     this.#authService = authService;
   }
 
-  async login(req: Request, res: Response, next: any) {}
-  //   async signUp(root, { username, password }) {
-  //     let newUser = await this.#authService.createUser({ username, password });
-  //     return newUser;
-  //   }
+  async register(req: Request, res: Response, next: any) {
+    try {
+      const body = req.body;
 
-  //   async signIn(root, { username, password }) {
-  //     let user = await this.#authService.loginUser({ username, password });
-  //     return user;
-  //   }
+      joiUtil.registerValidation(body);
 
-  //   async whoIAm(root, inputs, { isLogged, userData }) {
-  //     if (!isLogged) throw new Error("You must be logged in to see your data.");
+      const user = await this.#authService.createUser(
+        body.name,
+        body.username,
+        body.password
+      );
 
-  //     return { id: userData._id.toString(), username: userData.username };
-  //   }
+      return res.json(user);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async login(req: Request, res: Response, next: any) {
+    try {
+      const body = req.body;
+
+      joiUtil.loginValidation(body);
+
+      const user = await this.#authService.loginUser(
+        body.username,
+        body.password
+      );
+
+      return res.json(user);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default new AuthController();
