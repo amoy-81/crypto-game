@@ -4,7 +4,7 @@ import User from "../../modules/user/user.model";
 
 const createHttpError = require("http-errors");
 
-const authMiddleware = async (req: any, res: Response, next: any) => {
+const authGuard = async (req: any, res: Response, next: any) => {
   try {
     const jwtSecretKey: any = process.env.JWT_SECRET_KEY;
     const { authorization } = req?.headers;
@@ -28,4 +28,4 @@ const authMiddleware = async (req: any, res: Response, next: any) => {
     next(error);
   }
 };
-export default authMiddleware;
+export default authGuard;

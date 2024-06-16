@@ -1,10 +1,12 @@
 import express from "express";
 import AuthRouter from "./modules/auth/auth.router";
 import errorHandler from "./common/middlewares/errorHandler";
+import CoinRouter from "./modules/coin/coin.router";
 
 const router = express.Router();
 
 router.use("/auth", AuthRouter);
+router.use("/coin", CoinRouter);
 
 // if route not found
 router.use("*", (req, res, next) => {

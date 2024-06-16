@@ -5,6 +5,7 @@ interface IUser {
   username: string;
   password: string;
   friends: ObjectId[];
+  currentCredit: Number;
 }
 
 const userSchema = new Schema<IUser>(
@@ -13,6 +14,7 @@ const userSchema = new Schema<IUser>(
     username: { type: String, unique: true, required: true },
     password: { type: String, required: true },
     friends: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
+    currentCredit: { type: Number, default: 10 },
   },
   { timestamps: true }
 );
