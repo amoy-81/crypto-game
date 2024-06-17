@@ -2,14 +2,17 @@ import User from "../user/user.model";
 import createHttpError from "http-errors";
 import Record from "./models/record.model";
 import userService, { changeUserCreditT } from "../user/user.service";
+import Resource from "./models/resource.model";
 
 // CoinService class for managing mining operations
 class CoinService {
   #recordModel; // Private field for Record model
+  #resourceModel; // Private field for Resource model
   #userService; // Private field for userService
 
   constructor() {
     this.#recordModel = Record; // Initialize Record model
+    this.#resourceModel = Resource; // Initialize Record model
     this.#userService = userService; // Initialize userService
   }
 
@@ -63,8 +66,25 @@ class CoinService {
     record.endAt = now;
     record.isMined = true;
 
+    const lastTotalResource = await this.#resourceModel
+      .findOne()
+      .sort({ _id: -1 });
+
+    const lastLeftOver: any = lastTotalResource?.leftOver;
+
+    if (lastLeftOver < minedCoin)
+      throw new createHttpError[400]("Resources are exhausted");
+
     // Save the updated record
     await record.save();
+
+    const newTotalResource = lastLeftOver - minedCoin;
+
+    const newHistory = await this.#resourceModel.create({
+      user: userId,
+      amount: minedCoin,
+      leftOver: newTotalResource,
+    });
 
     // Update the user's credit with the mined coins
     const userUpdated = await this.#userService.changeUserCredit(
