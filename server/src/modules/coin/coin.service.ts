@@ -99,6 +99,14 @@ class CoinService {
     // Return the mining details and updated user information
     return { recordTime, record, user: userUpdated, newHistory };
   }
+
+  async getMineHstory(user?: string) {
+    const history = await this.#resourceModel
+      .find(user ? { user } : {})
+      .sort({ _id: -1 })
+      .populate("user", " -password");
+    return history;
+  }
 }
 
 export default new CoinService(); // Export an instance of CoinService

@@ -7,9 +7,14 @@ CoinRouter.get("/record", authGuard, coiController.startRecord);
 
 CoinRouter.get("/current-record", authGuard, coiController.getCurrentRecord);
 
-CoinRouter.get("/mine", authGuard, coiController.mineRecord);
+CoinRouter.get(
+  "/mine-history/:userId",
+  authGuard,
+  coiController.userMineHistory
+);
 
-// TODO : GET History list
-// TODO : GET User History list
+CoinRouter.get("/mine-history", authGuard, coiController.mineHistory);
+
+CoinRouter.get("/mine", authGuard, coiController.mineRecord);
 
 export default CoinRouter;
