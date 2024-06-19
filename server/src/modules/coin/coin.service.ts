@@ -1,8 +1,7 @@
-import User from "../user/user.model";
 import createHttpError from "http-errors";
 import Record from "./models/record.model";
 import userService, { changeUserCreditT } from "../user/user.service";
-import Resource from "./models/resource.model";
+import Resource, { mineT } from "./models/resource.model";
 
 // CoinService class for managing mining operations
 class CoinService {
@@ -59,6 +58,9 @@ class CoinService {
     // Calculate mined coins based on mining duration
     const minedCoin = recordTime > prof ? 5 : Math.floor(recordTime / divisor);
 
+    if (minedCoin == 0)
+      throw new createHttpError[400]("You have not mined anything.");
+
     // Update the mined coin amount in the record
     // Set the end time of the mining
     // Mark the record as mined
@@ -83,6 +85,7 @@ class CoinService {
     const newHistory = await this.#resourceModel.create({
       user: userId,
       amount: minedCoin,
+      type: mineT.normalMine,
       leftOver: newTotalResource,
     });
 
@@ -94,7 +97,7 @@ class CoinService {
     );
 
     // Return the mining details and updated user information
-    return { recordTime, record, user: userUpdated };
+    return { recordTime, record, user: userUpdated, newHistory };
   }
 }
 
