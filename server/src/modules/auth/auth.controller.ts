@@ -14,6 +14,8 @@ class AuthController {
     try {
       const body = req.body;
 
+      const il: any = req?.query?.il || null;
+
       joiUtil.registerValidation(body);
 
       const user = await this.#authService.createUser(
@@ -22,7 +24,14 @@ class AuthController {
         body.password
       );
 
-      return res.json(user);
+      if (!il) return res.json({ user, generatedHistory: null });
+
+      const { success, generatedHistory } = await this.#authService.invitation(
+        il,
+        user.il
+      );
+
+      return res.json({ user, generatedHistory });
     } catch (error) {
       next(error);
     }

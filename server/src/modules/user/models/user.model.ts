@@ -5,7 +5,7 @@ interface IUser {
   name: string;
   username: string;
   password: string;
-  friends: ObjectId[];
+  friends: string[];
   currentCredit: Number;
   il: string;
 }

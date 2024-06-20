@@ -80,22 +80,11 @@ class CoinService {
     // Save the updated record
     await record.save();
 
-    const newTotalResource = lastLeftOver - minedCoin;
-
-    const newHistory = await this.#resourceModel.create({
-      user: userId,
-      amount: minedCoin,
-      type: mineT.normalMine,
-      leftOver: newTotalResource,
-    });
-
-    // Update the user's credit with the mined coins
-    const userUpdated = await this.#userService.changeUserCredit(
+    const { newHistory, userUpdated } = await this.createHistory(
       userId,
-      changeUserCreditT.i,
-      minedCoin
+      minedCoin,
+      mineT.normalMine
     );
-
     // Return the mining details and updated user information
     return { recordTime, record, user: userUpdated, newHistory };
   }
@@ -106,6 +95,39 @@ class CoinService {
       .sort({ _id: -1 })
       .populate("user", " -password");
     return history;
+  }
+
+  async createHistory(userId: string, minedCoin: number, type: mineT) {
+    try {
+      const lastTotalResource = await this.#resourceModel
+        .findOne()
+        .sort({ _id: -1 });
+
+      const lastLeftOver: any = lastTotalResource?.leftOver;
+
+      if (lastLeftOver < minedCoin)
+        throw new createHttpError[400]("Resources are exhausted");
+
+      const newTotalResource = lastLeftOver - minedCoin;
+
+      const newHistory = await this.#resourceModel.create({
+        user: userId,
+        amount: minedCoin,
+        type: type,
+        leftOver: newTotalResource,
+      });
+
+      // Update the user's credit with the mined coins
+      const userUpdated = await this.#userService.changeUserCredit(
+        userId,
+        changeUserCreditT.i,
+        minedCoin
+      );
+
+      return { newHistory, userUpdated, success: true };
+    } catch (error) {
+      return { newHistory: null, userUpdated: null, success: false };
+    }
   }
 }
 
