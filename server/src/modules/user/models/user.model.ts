@@ -1,4 +1,5 @@
 import mongoose, { ObjectId, Schema } from "mongoose";
+import { v4 as uuidv4 } from "uuid";
 
 interface IUser {
   name: string;
@@ -6,6 +7,7 @@ interface IUser {
   password: string;
   friends: ObjectId[];
   currentCredit: Number;
+  il: string;
 }
 
 const userSchema = new Schema<IUser>(
@@ -15,6 +17,7 @@ const userSchema = new Schema<IUser>(
     password: { type: String, required: true },
     friends: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
     currentCredit: { type: Number, default: 10 },
+    il: { type: String, default: uuidv4 },
   },
   { timestamps: true }
 );

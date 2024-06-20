@@ -1,4 +1,4 @@
-import User from "./user.model";
+import User from "./models/user.model";
 import createHttpError from "http-errors";
 
 // Enum for specifying credit change type

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import User from "../../modules/user/user.model";
+import User from "../../modules/user/models/user.model";
 
 const createHttpError = require("http-errors");
 

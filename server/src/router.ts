@@ -7,9 +7,7 @@ const router = express.Router();
 
 router.use("/auth", AuthRouter);
 router.use("/coin", CoinRouter);
-
-// TODO : Friend Module
-// TODO : List of friends, and friends number of friends
+router.use("/friends", CoinRouter);
 
 // if route not found
 router.use("*", (req, res, next) => {

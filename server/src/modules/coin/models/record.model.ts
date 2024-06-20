@@ -1,5 +1,5 @@
 import mongoose, { ObjectId, Schema, model } from "mongoose";
-import User from "../../user/user.model";
+import User from "../../user/models/user.model";
 
 interface IRecord {
   user: ObjectId;
