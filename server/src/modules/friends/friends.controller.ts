@@ -17,6 +17,15 @@ class FriendsController {
       next(error);
     }
   }
+
+  async generateIl(req: any, res: Response, next: any) {
+    try {
+      const il = await this.#friendsService.getUserIl(req.user.id);
+      return res.json({ il });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default new FriendsController();
