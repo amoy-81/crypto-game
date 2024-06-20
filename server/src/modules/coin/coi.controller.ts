@@ -50,11 +50,19 @@ class CoinController {
 
   async userMineHistory(req: any, res: Response, next: any) {
     try {
-      console.log();
       if (!req.params.userId)
         throw new createHttpError[400]("User is not found");
       const result = await this.#coinService.getMineHstory(req.params.userId);
       return res.json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getCurrentResource(req: any, res: Response, next: any) {
+    try {
+      const resource = await this.#coinService.getCurrentResource();
+      return res.json({ resource });
     } catch (error) {
       next(error);
     }

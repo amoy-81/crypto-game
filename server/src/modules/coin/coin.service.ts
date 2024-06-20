@@ -129,6 +129,11 @@ class CoinService {
       return { newHistory: null, userUpdated: null, success: false };
     }
   }
+
+  async getCurrentResource() {
+    const resource = await this.#resourceModel.findOne().sort({ _id: -1 });
+    return resource?.leftOver;
+  }
 }
 
 export default new CoinService(); // Export an instance of CoinService

@@ -8,6 +8,12 @@ CoinRouter.get("/record", authGuard, coiController.startRecord);
 CoinRouter.get("/current-record", authGuard, coiController.getCurrentRecord);
 
 CoinRouter.get(
+  "/current-resource",
+  authGuard,
+  coiController.getCurrentResource
+);
+
+CoinRouter.get(
   "/mine-history/:userId",
   authGuard,
   coiController.userMineHistory
