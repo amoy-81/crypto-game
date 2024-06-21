@@ -81,15 +81,15 @@ export default function Navbar() {
     },
   ];
   return (
-    <header className=" absolute bottom-0 w-full flex items-center justify-between p-5 border-neutral-500 border-b-0 border-[1px] rounded-t-2xl backdrop-blur-lg">
+    <nav className=" h-1-8 flex-none w-full overflow-hidden flex items-center justify-between p-5 border-neutral-500 border-b-0 border-[1px] rounded-t-2xl backdrop-blur-lg">
       <ul className=" w-full flex justify-between">
         {items.map((item, index) => (
           <li key={index} className=" flex flex-col items-center">
             {item.avatar}
-            <span>{item.title}</span>
+            <span className="">{item.title}</span>
           </li>
         ))}
       </ul>
-    </header>
+    </nav>
   );
 }

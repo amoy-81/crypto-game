@@ -37,3 +37,38 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+.auth-bg {
+  background-image: url("../../public/bg-auth.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.h-1-8 {
+  height: 10%;
+}
+
+.h-6-8 {
+  height: 80%;
+}
+
+/* width */
+.sc::-webkit-scrollbar {
+  width: 0px;
+}
+
+/* Track */
+.sc::-webkit-scrollbar-track {
+  background: none;
+}
+
+/* Handle */
+.sc::-webkit-scrollbar-thumb {
+  background: #50505000;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+.sc::-webkit-scrollbar-thumb:hover {
+  background: #55555500;
+}
