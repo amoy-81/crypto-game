@@ -1,10 +1,12 @@
 import Image from "next/image";
 import CoinLogo from "../../../../public/coin.png";
+import Link from "next/link";
 
 export default function Navbar() {
   const items = [
     {
       title: "Mine",
+      path: "/",
       avatar: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -24,6 +26,7 @@ export default function Navbar() {
     },
     {
       title: "History",
+      path: "/history",
       avatar: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +45,8 @@ export default function Navbar() {
       ),
     },
     {
-      title: "friends",
+      title: "Friends",
+      path: "/friends",
       avatar: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -61,7 +65,8 @@ export default function Navbar() {
       ),
     },
     {
-      title: "drop",
+      title: "Use",
+      path: "/use",
       avatar: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -81,12 +86,14 @@ export default function Navbar() {
     },
   ];
   return (
-    <nav className=" h-1-8 flex-none w-full overflow-hidden flex items-center justify-between p-5 border-neutral-500 border-b-0 border-[1px] rounded-t-2xl backdrop-blur-lg">
+    <nav className=" z-50 h-1-8 flex-none w-full overflow-hidden flex items-center justify-between p-5 border-neutral-500 border-b-0 border-[1px] rounded-t-2xl backdrop-blur-lg">
       <ul className=" w-full flex justify-between">
         {items.map((item, index) => (
-          <li key={index} className=" flex flex-col items-center">
-            {item.avatar}
-            <span className="">{item.title}</span>
+          <li key={index}>
+            <Link href={item.path} className=" flex flex-col items-center">
+              {item.avatar}
+              <span className="">{item.title}</span>
+            </Link>
           </li>
         ))}
       </ul>

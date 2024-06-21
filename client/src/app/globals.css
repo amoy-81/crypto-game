@@ -44,6 +44,24 @@ body {
   background-repeat: no-repeat;
 }
 
+.use-s-bg {
+  background-image: url("../../public/use-bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.bg-history-img {
+  background-image: url("../../public/bg-history.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.bg-friend-img {
+  background-image: url("../../public/friend-bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 .h-1-8 {
   height: 10%;
 }
@@ -71,4 +89,24 @@ body {
 /* Handle on hover */
 .sc::-webkit-scrollbar-thumb:hover {
   background: #55555500;
+}
+
+.fadeInOuteTag {
+  animation: fadeInOut 2s infinite;
+}
+
+@keyframes fadeInOut {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.typing {
+  border-right: 0.1em solid white;
+  white-space: nowrap;
+  overflow: hidden; 
 }
