@@ -108,5 +108,13 @@ body {
 .typing {
   border-right: 0.1em solid white;
   white-space: nowrap;
-  overflow: hidden; 
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .main-bg-image {
+    background-image: url("../../public/long-bg.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
 }
