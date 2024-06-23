@@ -1,7 +1,7 @@
-export default function ErrorAlert({ text }: { text: string }) {
+export function ErrorAlertBlur({ text }: { text: string }) {
   return (
     <div
-      className="p-4 text-sm rounded-lg bg-neutral-800 text-red-400 flex items-center border border-red-800"
+      className="p-4 text-sm rounded-lg backdrop-blur-xl text-red-400 flex items-center border border-red-800"
       role="alert"
     >
       <svg
@@ -21,7 +21,7 @@ export default function ErrorAlert({ text }: { text: string }) {
 export function SuccessAlert({ text }: { text: string }) {
   return (
     <div
-      className="p-4 text-sm rounded-lg bg-neutral-800 text-green-400 flex items-center border border-green-800"
+      className="p-4 text-sm rounded-lg backdrop-blur-xl text-green-400 flex items-center border border-green-800"
       role="alert"
     >
       <svg

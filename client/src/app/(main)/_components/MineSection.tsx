@@ -7,8 +7,10 @@ import CurrentCredit from "./CurrentCredit";
 import useAxiosAuth from "@/lib/hooks/useAxiosAuth";
 import { useSession } from "next-auth/react";
 import { formatTime } from "@/utils/timeFormater";
-import ErrorAlert from "@/app/_components/alerts/ErrorAlert";
-import { SuccessAlert } from "@/app/_components/alerts/AlertMessage";
+import {
+  ErrorAlertBlur,
+  SuccessAlert,
+} from "@/app/_components/alerts/AlertMessage";
 import ProgressBar from "./ProgressBar";
 
 export default function MineSection() {
@@ -109,7 +111,7 @@ export default function MineSection() {
   return (
     <>
       <div className=" py-2">
-        {errorMessage && <ErrorAlert text={errorMessage} />}
+        {errorMessage && <ErrorAlertBlur text={errorMessage} />}
         {successMessage && <SuccessAlert text={successMessage} />}
       </div>
       <CurrentCredit credit={credit} setCredit={setCredit} />
