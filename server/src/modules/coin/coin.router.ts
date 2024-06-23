@@ -14,6 +14,12 @@ CoinRouter.get(
 );
 
 CoinRouter.get(
+  "/current-credit",
+  authGuard,
+  coiController.currentCredit
+);
+
+CoinRouter.get(
   "/mine-history/:userId",
   authGuard,
   coiController.userMineHistory

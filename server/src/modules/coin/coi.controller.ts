@@ -67,6 +67,14 @@ class CoinController {
       next(error);
     }
   }
+
+  async currentCredit(req: any, res: Response, next: any) {
+    try {
+      return res.json({ credit: req?.user?.currentCredit });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default new CoinController();
