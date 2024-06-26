@@ -1,10 +1,8 @@
-const telegramBot = require("node-telegram-bot-api");
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
+import { Telegraf } from "telegraf";
+import jwt from "jsonwebtoken";
+import { VercelRequest, VercelResponse } from "@vercel/node";
 
-const token = process.env.BOT_TOKEN;
-
-const bot = new telegramBot(token, { polling: true });
+const bot = new Telegraf(process.env.BOT_TOKEN);
 
 bot.onText(/\/start(.+)?/, async (msg, match) => {
   const chatId = msg.chat.id;
@@ -41,22 +39,13 @@ bot.onText(/\/start(.+)?/, async (msg, match) => {
   );
 });
 
-// bot.onText("/new", (msg) => {
-//   console.log(msg);
-//   const chatId = msg.chat.id;
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  if (req.method === "POST") {
+    await bot.handleUpdate(req.body, res);
+    res.status(200).end();
+  } else {
+    res.status(405).end();
+  }
+}
 
-//   const opts = {
-//     reply_markup: {
-//       inline_keyboard: [
-//         [
-//           {
-//             text: "Play Game",
-//             web_app: { url: gameUrl },
-//           },
-//         ],
-//       ],
-//     },
-//   };
-
-//   bot.sendMessage(chatId, "Click the button below to play the game:", opts);
-// });
+bot.launch();
