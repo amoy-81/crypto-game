@@ -3,16 +3,15 @@
 import ErrorAlert from "@/app/_components/alerts/ErrorAlert";
 import Loader from "@/app/_components/loader/Loader";
 import { signIn } from "next-auth/react";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 export default function RegisterForm() {
-  const params = usePathname();
+  const params = useSearchParams();
+  const token = params.get("token");
+  const il = params.get("il");
 
   const router = useRouter();
-
-  const token = params.split("/")[3];
-  const il = params.split("/")[4];
 
   const [loading, setLoading] = useState<boolean>(false);
 

@@ -1,6 +1,7 @@
-import Image from "next/image";
-import CoinLogo from "../../../../public/coin.png";
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const items = [
@@ -85,12 +86,22 @@ export default function Navbar() {
       ),
     },
   ];
+
+  const pathname = usePathname().split("/")[1];
+
   return (
     <nav className=" z-50 h-1-8 flex-none w-full overflow-hidden flex items-center justify-between p-5 border-neutral-500 border-b-0 border-[1px] rounded-t-2xl backdrop-blur-lg">
       <ul className=" w-full flex justify-between">
         {items.map((item, index) => (
           <li key={index}>
-            <Link href={item.path} className=" flex flex-col items-center">
+            <Link
+              href={item.path}
+              className={`flex flex-col items-center ${
+                pathname === item.path.split("/")[1]
+                  ? `text-yellow-400`
+                  : `text-white`
+              }`}
+            >
               {item.avatar}
               <span className="">{item.title}</span>
             </Link>
