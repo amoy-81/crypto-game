@@ -3,16 +3,16 @@
 import ErrorAlert from "@/app/_components/alerts/ErrorAlert";
 import Loader from "@/app/_components/loader/Loader";
 import { signIn } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 export default function RegisterForm() {
-  const params = useSearchParams();
-  const token = params.get("token");
-  const il = params.get("il");
-  console.log(token, il);
+  const params = usePathname();
 
   const router = useRouter();
+
+  const token = params.split("/")[3];
+  const il = params.split("/")[4];
 
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -22,7 +22,7 @@ export default function RegisterForm() {
     setLoading(true);
     signIn("credentials", {
       token: token,
-      il: il,
+      il: il ? il : "Null",
       redirect: false,
     })
       .then((res) => {
@@ -45,7 +45,7 @@ export default function RegisterForm() {
 
       {loading && <Loader />}
 
-      {!token && <p className=" text-center">Please restart the bot {token}</p>}
+      {!token && <p className=" text-center">Please restart the bot</p>}
     </>
   );
 }

@@ -1,6 +1,5 @@
 import React from "react";
-import RegisterForm from "../_components/RegisterForm";
-import Link from "next/link";
+import RegisterForm from "../../_components/RegisterForm";
 
 export default function RegisterPage() {
   return (
