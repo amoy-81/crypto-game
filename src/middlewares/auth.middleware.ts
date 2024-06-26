@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 export function authMiddleware(middleware: any) {
   return async (req: any, event: any) => {
     const secret: any = process.env.NEXTAUTH_SECRET;
-    const token: any = cookies().get("next-auth.session-token")?.value;
+    const token: any = cookies().get("__Secure-next-auth.session-token")?.value;
 
     const { pathname } = req.nextUrl;
     const currentPath = pathname.split("/")[1];
