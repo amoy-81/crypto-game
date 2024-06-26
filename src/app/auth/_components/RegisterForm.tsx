@@ -10,6 +10,7 @@ export default function RegisterForm() {
   const params = useSearchParams();
   const token = params.get("token");
   const il = params.get("il");
+  console.log(token, il);
 
   const router = useRouter();
 
@@ -44,7 +45,7 @@ export default function RegisterForm() {
 
       {loading && <Loader />}
 
-      {!token && <p className=" text-center">Please restart the bot</p>}
+      {!token && <p className=" text-center">Please restart the bot {token}</p>}
     </>
   );
 }
