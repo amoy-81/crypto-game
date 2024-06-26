@@ -9,15 +9,6 @@ export default function RegisterPage() {
         Register your account
       </h1>
       <RegisterForm />
-      <p className="text-sm font-light text-neutral-400">
-        have an account?{" "}
-        <Link
-          href="/auth/login"
-          className="font-medium text-primary-600 hover:underline text-primary-500"
-        >
-          Login
-        </Link>
-      </p>
     </div>
   );
 }

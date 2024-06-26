@@ -21,7 +21,7 @@ class FriendsController {
   async generateIl(req: any, res: Response, next: any) {
     try {
       const il = await this.#friendsService.getUserIl(req.user.id);
-      return res.json({ il });
+      return res.json({ il: `${process.env.BOT_URL}?start=${il}` });
     } catch (error) {
       next(error);
     }

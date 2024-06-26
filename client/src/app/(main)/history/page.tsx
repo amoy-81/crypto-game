@@ -8,17 +8,18 @@ export default async function History() {
   );
 
   const mineHistory = await AuthFetchApi("/coin/mine-history", httpMethods.get);
-
   console.log(mineHistory);
+
   return (
     <section className=" h-full bg-history-img">
       <div className=" h-1/3 flex flex-col justify-around">
         <div>
           <h1 className="font-bold">
-            RemaiNing <span className=" text-yellow-400 fadeInOuteTag">ResouRceS</span>
+            RemaiNing{" "}
+            <span className=" text-yellow-400 fadeInOuteTag">ResouRceS</span>
           </h1>
           <h2 className=" text-neutral-300">
-            $ {currentResours?.resource.toLocaleString("en-US")}
+            $ {currentResours?.resource?.toLocaleString("en-US")}
           </h2>
         </div>
         <div className=" flex flex-col gap-2">
@@ -34,31 +35,21 @@ export default async function History() {
         </div>
       </div>
       <div className=" h-2/3 pb-2 sc overflow-y-scroll overflow-x-hidden flex flex-col gap-4">
-        {mineHistory.map((item: any, index: any) => (
-          <MineSubmission
-            key={index}
-            name={item?.user?.username}
-            amount={item?.amount}
-            type={
-              item.type === "NORMAL_MINE"
-                ? MineSubmissionT.normal
-                : item.type === "ADD_FRIENND"
-                ? MineSubmissionT.addFriend
-                : MineSubmissionT.commission
-            }
-          />
-        ))}
-
-        <MineSubmission
-          name="amoy"
-          amount={500}
-          type={MineSubmissionT.commission}
-        />
-        <MineSubmission
-          name="amoy"
-          amount={500}
-          type={MineSubmissionT.normal}
-        />
+        {mineHistory &&
+          mineHistory?.map((item: any, index: any) => (
+            <MineSubmission
+              key={index}
+              name={item?.user?.username}
+              amount={item?.amount}
+              type={
+                item.type === "NORMAL_MINE"
+                  ? MineSubmissionT.normal
+                  : item.type === "ADD_FRIENND"
+                  ? MineSubmissionT.addFriend
+                  : MineSubmissionT.commission
+              }
+            />
+          ))}
       </div>
     </section>
   );

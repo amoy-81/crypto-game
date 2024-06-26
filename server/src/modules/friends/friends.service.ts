@@ -10,7 +10,7 @@ class FriendsService {
   async getUserFriends(userId: string) {
     const user = await this.#User
       .findById(userId)
-      .populate("friends", "-password -il -currentCredit -friends -__v")
+      .populate("friends", " -il -currentCredit -friends -__v")
       .exec();
 
     if (!user) {

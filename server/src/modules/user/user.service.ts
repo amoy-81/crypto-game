@@ -44,7 +44,7 @@ class UserService {
     await user.save();
 
     // Destructure user object to exclude password
-    const { password, ...userResult } = user.toJSON();
+    const { ...userResult } = user.toJSON();
     // Return user object without password
     return userResult;
   }

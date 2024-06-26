@@ -9,8 +9,8 @@ export const options: NextAuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        username: { label: "Username", type: "text" },
-        password: { label: "Password", type: "password" },
+        token: { label: "Token", type: "text" },
+        il: { label: "il", type: "text" },
       },
       // Authorization logic
       async authorize(credentials, req) {
@@ -21,8 +21,8 @@ export const options: NextAuthOptions = {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            username: credentials?.username,
-            password: credentials?.password,
+            token: credentials?.token,
+            il: credentials?.il,
           }),
         });
         // Parse the response from the server

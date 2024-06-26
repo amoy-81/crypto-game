@@ -10,46 +10,17 @@ class AuthController {
     this.#authService = authService;
   }
 
-  async register(req: Request, res: Response, next: any) {
-    try {
-      const body = req.body;
-
-      const il: any = req?.query?.il || null;
-
-      joiUtil.registerValidation(body);
-
-      const user = await this.#authService.createUser(
-        body.name,
-        body.username,
-        body.password
-      );
-
-      if (!il) return res.json({ user, generatedHistory: null });
-
-      const { success, generatedHistory } = await this.#authService.invitation(
-        il,
-        user.il
-      );
-
-      return res.json({ user, generatedHistory });
-    } catch (error) {
-      next(error);
-    }
-  }
-
   async login(req: Request, res: Response, next: any) {
     try {
       const body = req.body;
 
       joiUtil.loginValidation(body);
 
-      const user = await this.#authService.loginUser(
-        body.username,
-        body.password
-      );
+      const user = await this.#authService.loginUser(body.token, body.il);
 
       return res.json(user);
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }

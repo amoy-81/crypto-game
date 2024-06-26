@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 interface IUser {
   name: string;
   username: string;
-  password: string;
+  t_id: number;
   friends: string[];
   currentCredit: Number;
   il: string;
@@ -14,7 +14,7 @@ const userSchema = new Schema<IUser>(
   {
     name: { type: String, required: true },
     username: { type: String, unique: true, required: true },
-    password: { type: String, required: true },
+    t_id: { type: Number, unique: true, required: true },
     friends: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
     currentCredit: { type: Number, default: 10 },
     il: { type: String, default: uuidv4 },

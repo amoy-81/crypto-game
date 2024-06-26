@@ -39,8 +39,8 @@ export default function MineSubmission({
           />
         </svg>
         <span>
-          {name.slice(0, 10)}
-          {name.length > 10 ? "..." : ""}
+          {name?.slice(0, 10)}
+          {name && name?.length > 10 ? "..." : ""}
         </span>
       </div>
       {amount ? <span>$ {amount}</span> : <span> </span>}

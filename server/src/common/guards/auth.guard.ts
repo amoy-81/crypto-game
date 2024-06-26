@@ -16,6 +16,7 @@ const authGuard = async (req: any, res: Response, next: any) => {
     const data = jwt.verify(token, jwtSecretKey);
 
     if (typeof data === "object" && "id" in data) {
+      
       const user = await User.findById(data.id);
 
       if (!user) throw new createHttpError.Unauthorized("notFound");

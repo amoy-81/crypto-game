@@ -28,6 +28,7 @@ export default function MineSection() {
 
   useEffect(() => {
     if (session) {
+      console.log(session);
       getCurrentRecord();
     }
   }, [session]);

@@ -93,7 +93,7 @@ class CoinService {
     const history = await this.#resourceModel
       .find(user ? { user } : {})
       .sort({ _id: -1 })
-      .populate("user", " -password");
+      .populate("user");
     return history;
   }
 

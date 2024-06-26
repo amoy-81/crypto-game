@@ -1,5 +1,4 @@
 import User from "../user/models/user.model";
-import bcrypt from "bcrypt";
 import createHttpError from "http-errors";
 import jwt from "jsonwebtoken";
 import userService from "../user/user.service";
@@ -17,29 +16,44 @@ class AuthService {
   }
 
   // signUp
-  async createUser(name: string, username: string, password: string) {
-    const user = await this.#User.findOne({ username });
+  async createUser(name: string, username: string, t_id: number, il: string) {
+    const user = await this.#User.findOne({ t_id });
     if (user) throw new createHttpError[403]("User already exists");
 
-    const hashPassword = await bcrypt.hash(password, 10);
     const newUser = await this.#User.create({
       name,
       username,
-      password: hashPassword,
+      t_id,
     });
 
-    return this.loginUser(newUser.username, password);
+    await this.invitation(il, newUser.il);
+
+    return this.createToken(newUser);
   }
 
   // login
-  async loginUser(username: string, password: string) {
-    const user = await this.#User.findOne({ username });
-    if (!user) throw new createHttpError[404]("Username not found");
+  async loginUser(token: string, il: string) {
+    const secret: any = process.env.BOT_JWT;
+    const userData: any = jwt.verify(token, secret);
 
-    const isValidPass = await bcrypt.compare(password, user.password);
-    if (!isValidPass) throw new createHttpError[403]("Invalid Password");
+    const user = await this.#User.findOne({ t_id: userData.id });
 
+    if (!user)
+      return this.createUser(
+        userData.first_name,
+        userData.username,
+        userData.id,
+        il
+      );
+
+    return this.createToken(user);
+  }
+
+  // generate login lisence
+  createToken(user: any) {
     const accessToken = this.signToken({ id: user.id });
+
+    console.log(user);
     return {
       id: user.id,
       name: user.name,
@@ -59,15 +73,13 @@ class AuthService {
       const hostUser = await this.#User.findOne({ il: user });
       const guestUser = await this.#User.findOne({ il: friend });
 
-      console.log(hostUser?.friends.includes(guestUser?.id));
-
-      if (!hostUser || !guestUser || hostUser?.friends.includes(guestUser.id))
+      if (!hostUser || !guestUser || hostUser.friends.includes(guestUser.id))
         return {
           success: false,
           generatedHistory: null,
         };
 
-      hostUser?.friends.push(guestUser.id);
+      hostUser.friends.push(guestUser.id);
 
       await hostUser.save();
 
@@ -97,6 +109,7 @@ class AuthService {
         generatedHistory: [userNewHistory, higherNodeNewHistory],
       };
     } catch (error) {
+      console.log(error);
       return {
         success: false,
         generatedHistory: null,

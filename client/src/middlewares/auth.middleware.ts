@@ -24,7 +24,7 @@ export function authMiddleware(middleware: any) {
     }
 
     if (!session) {
-      return NextResponse.redirect(new URL("/auth/login", req.url));
+      return NextResponse.redirect(new URL("/auth/register", req.url));
     }
 
     // console.log("lang => ", currentLang);
