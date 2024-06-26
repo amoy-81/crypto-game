@@ -13,9 +13,11 @@ bot.onText(/\/start(.+)?/, async (msg, match) => {
 
   const jwtCode = jwt.sign(msg.from, process.env.BOT_JWT);
 
-  const query = match[1] ? match[1].trim() : "";
+  const query = match[1] ? match[1].trim() : "null";
 
-  const gameUrl = `https://shop-manager-client.vercel.app?token=${jwtCode}&il=${query}`;
+  const gameUrl = `${
+    process.env.CLIENT_URL
+  }/auth/register?token=${jwtCode}&il=${query ? query : "null"}`;
 
   console.log(gameUrl);
 
