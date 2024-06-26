@@ -13,6 +13,7 @@
     "jsonwebtoken": "^9.0.2",
     "node-telegram-bot-api": "^0.66.0",
     "telegraf": "^4.16.3",
-    "telegram-bot-api": "^2.0.1"
+    "telegram-bot-api": "^2.0.1",
+    "vercel": "^34.2.8"
   }
 }

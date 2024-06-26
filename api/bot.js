@@ -1,6 +1,5 @@
 import { Telegraf } from "telegraf";
 import jwt from "jsonwebtoken";
-import { VercelRequest, VercelResponse } from "@vercel/node";
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
@@ -39,7 +38,7 @@ bot.onText(/\/start(.+)?/, async (msg, match) => {
   );
 });
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req, res) {
   if (req.method === "POST") {
     await bot.handleUpdate(req.body, res);
     res.status(200).end();
