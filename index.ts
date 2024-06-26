@@ -14,6 +14,7 @@ const port = process.env.PORT;
 const db_url: any = process.env.DB_URL;
 
 const bot_token: any = process.env.BOT_TOKEN;
+console.log("BOT_TOKEN =>" ,bot_token);
 const bot = new TelegramBot(bot_token, { polling: true });
 
 bot.onText(/\/start(.+)?/, async (msg: any, match: any) => {
