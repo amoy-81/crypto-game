@@ -13,7 +13,8 @@ const app = express();
 const port = process.env.PORT;
 const db_url: any = process.env.DB_URL;
 
-const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
+const bot_token: any = process.env.BOT_TOKEN;
+const bot = new TelegramBot(bot_token, { polling: true });
 
 bot.onText(/\/start(.+)?/, async (msg: any, match: any) => {
   const chatId = msg.chat.id;
