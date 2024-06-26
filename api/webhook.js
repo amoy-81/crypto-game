@@ -41,8 +41,44 @@ bot.onText(/\/start(.+)?/, async (msg, match) => {
 
 module.exports = (request, response) => {
   try {
-    console.log(request)
-    response.json({m: "a"})
+    console.log(request);
+    const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
+
+    bot.onText(/\/start(.+)?/, async (msg, match) => {
+      const chatId = msg.chat.id;
+
+      console.log(msg.from);
+
+      const jwtCode = jwt.sign(msg.from, process.env.BOT_JWT);
+
+      const query = match[1] ? match[1].trim() : "null";
+
+      const gameUrl = `${
+        process.env.CLIENT_URL
+      }/auth/register?token=${jwtCode}&il=${query ? query : "null"}`;
+
+      console.log(gameUrl);
+
+      const opts = {
+        reply_markup: {
+          inline_keyboard: [
+            [
+              {
+                text: "Play D-coiN",
+                web_app: { url: gameUrl },
+              },
+            ],
+          ],
+        },
+      };
+
+      bot.sendMessage(
+        chatId,
+        `Hi ${msg.from.first_name}, click the button below to open app:`,
+        opts
+      );
+    });
+    response.json({ m: "a" });
   } catch (error) {
     // If there was an error sending our message then we
     // can log it into the Vercel console
