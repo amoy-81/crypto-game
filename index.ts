@@ -6,6 +6,7 @@ import cors from "cors";
 
 import TelegramBot from "node-telegram-bot-api";
 import encryptionUtil from "./src/common/utilities/encryption.util";
+import { jsonAcceptable } from "./src/common/utilities/utils";
 
 dotenv.config();
 
@@ -22,7 +23,14 @@ bot.onText(/\/start(.+)?/, async (msg: any, match: any) => {
 
   console.log(msg.from);
 
-  const jwtCode = encryptionUtil.encrypt(msg.from);
+  const jwtCode = encryptionUtil.encrypt({
+    id: msg.from.id,
+    username: msg.from.username,
+    first_name:
+      msg.from.first_name && jsonAcceptable(msg.from.first_name)
+        ? msg.from.first_name
+        : "D-U",
+  });
 
   const query = match[1] ? match[1].trim() : "null";
 
