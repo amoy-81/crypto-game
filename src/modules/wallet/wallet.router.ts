@@ -5,11 +5,20 @@ import encryptionUtil from "../../common/utilities/encryption.util";
 
 const WalletRouter = express.Router();
 
+WalletRouter.get("/", authGuard, walletController.getMyWalletAddress);
+
+WalletRouter.get(
+  "/user/:userId",
+  authGuard,
+  walletController.getUserByUserId
+);
+
 WalletRouter.post(
   "/transaction",
   authGuard,
   walletController.createTransaction
 );
+
 
 // for test
 WalletRouter.get("/e", (req: any, res: any) => {

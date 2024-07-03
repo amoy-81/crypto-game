@@ -35,8 +35,13 @@ class WalletService {
       amount,
     });
 
-    await newTransaction.populate("receiver" , "-friends -t_id -il -__v");
+    await newTransaction.populate("receiver", "-friends -t_id -il -__v");
     return { newTransaction, payerCreditChange };
+  }
+
+  async getUser(id: string) {
+    const user = await this.#userService.findById(id);
+    return user;
   }
 }
 

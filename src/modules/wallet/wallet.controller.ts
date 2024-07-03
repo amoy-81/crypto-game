@@ -39,6 +39,30 @@ class WalletController {
       next(error);
     }
   }
+
+  async getMyWalletAddress(req: any, res: Response, next: any) {
+    try {
+      return res.status(200).json({ wallet: req.user.id });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getUserByUserId(req: any, res: Response, next: any) {
+    try {
+      if (!req.params.userId) throw new createHttpError[404]("User Not Found");
+
+      const user = await this.#walletService.getUser(req.params.userId);
+
+      return res.status(200).json({
+        name: user.name,
+        username: user.username,
+        credit: user.currentCredit,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default new WalletController();
