@@ -48,6 +48,13 @@ class UserService {
     // Return user object without password
     return userResult;
   }
+
+  async findById(id: string) {
+    const user = await this.#userModel.findById(id);
+    if (!user) throw new createHttpError[404]("User Not Found");
+
+    return user;
+  }
 }
 // Export an instance of UserService
 export default new UserService();

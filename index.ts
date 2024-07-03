@@ -5,7 +5,7 @@ import router from "./src/router";
 import cors from "cors";
 
 import TelegramBot from "node-telegram-bot-api";
-import jwt from "jsonwebtoken";
+import encryptionUtil from "./src/common/utilities/encryption.util";
 
 dotenv.config();
 
@@ -22,8 +22,7 @@ bot.onText(/\/start(.+)?/, async (msg: any, match: any) => {
 
   console.log(msg.from);
 
-  const secretKeyJWT: any = process.env.BOT_JWT;
-  const jwtCode = jwt.sign(msg.from, secretKeyJWT);
+  const jwtCode = encryptionUtil.encrypt(msg.from);
 
   const query = match[1] ? match[1].trim() : "null";
 

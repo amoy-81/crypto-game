@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import userService from "../user/user.service";
 import coinService from "../coin/coin.service";
 import { mineT } from "../coin/models/resource.model";
+import encryptionUtil from "../../common/utilities/encryption.util";
 
 class AuthService {
   #User;
@@ -33,15 +34,14 @@ class AuthService {
 
   // login
   async loginUser(token: string, il: string) {
-    const secret: any = process.env.BOT_JWT;
-    const userData: any = jwt.verify(token, secret);
+    const userData: any = encryptionUtil.decrypt(token);
 
     const user = await this.#User.findOne({ t_id: userData.id });
 
     if (!user)
       return this.createUser(
-        userData.first_name,
-        userData.username,
+        userData.first_name || "user",
+        userData.username || `user_${userData.id}`,
         userData.id,
         il
       );
