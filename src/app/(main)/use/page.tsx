@@ -1,11 +1,14 @@
 import DiscriptionTexts from "./_components/DiscriptionTexts";
+import WalletHandler from "./_components/WalletHandler";
 
 export default function UsePage() {
   return (
     <section className=" use-s-bg flex flex-col items-center h-full">
-      <h1 className=" font-bold my-4 mt-6">How to use <span className=" fadeInOuteTag text-yellow-400">D-Coin</span>?</h1>
-      <DiscriptionTexts />
-      
+      <h1 className=" font-bold my-4 mt-6">
+        My <span className=" fadeInOuteTag text-yellow-400">D-Coin</span> Wallet
+      </h1>
+      <WalletHandler />
+      {/* <DiscriptionTexts /> */}
     </section>
   );
 }
