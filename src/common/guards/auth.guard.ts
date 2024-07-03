@@ -13,17 +13,20 @@ const authGuard = async (req: any, res: Response, next: any) => {
 
     if (!token) throw new createHttpError.Unauthorized("unauthorized");
 
-    const data = jwt.verify(token, jwtSecretKey);
+    try {
+      const data = jwt.verify(token, jwtSecretKey);
+      if (typeof data === "object" && "id" in data) {
+        const user = await User.findById(data.id);
 
-    if (typeof data === "object" && "id" in data) {
-      
-      const user = await User.findById(data.id);
+        if (!user) throw new createHttpError.Unauthorized("notFound");
 
-      if (!user) throw new createHttpError.Unauthorized("notFound");
-
-      req.user = user;
-      return next();
+        req.user = user;
+        return next();
+      }
+    } catch (err) {
+      throw new createHttpError.Unauthorized("unauthorized");
     }
+
     throw new createHttpError.Unauthorized("unauthorized");
   } catch (error) {
     next(error);
