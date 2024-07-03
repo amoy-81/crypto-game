@@ -16,14 +16,11 @@ class EncryptionUtil {
   }
 
   decrypt(text: any) {
-    try {
       const decrypted = decrypt(text, this.encryptionKey, this.salt);
       console.log(decrypted)
       const decryptedVAl = JSON.parse(decrypted);
       return decryptedVAl;
-    } catch (err) {
-      throw new Error("Token is Not Valid");
-    }
+    
   }
 }
 
