@@ -16,6 +16,7 @@ class AuthController {
 
       joiUtil.loginValidation(body);
 
+      console.log("TTTTTOKEN =>", body.token);
       const user = await this.#authService.loginUser(body.token, body.il);
 
       return res.json(user);

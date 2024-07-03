@@ -25,11 +25,11 @@ bot.onText(/\/start(.+)?/, async (msg: any, match: any) => {
 
   const jwtCode = encryptionUtil.encrypt({
     id: msg.from.id,
-    username: msg.from.username,
-    first_name:
-      msg.from.first_name && jsonAcceptable(msg.from.first_name)
-        ? msg.from.first_name
-        : "D-U",
+    username:
+      msg.from.username && jsonAcceptable(msg.from.username)
+        ? msg.from.username
+        : `user-${msg.from.id}`,
+    firstName: "D-U",
   });
 
   const query = match[1] ? match[1].trim() : "null";

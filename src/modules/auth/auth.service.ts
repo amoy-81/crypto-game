@@ -40,7 +40,7 @@ class AuthService {
 
     if (!user)
       return this.createUser(
-        userData.first_name || "user",
+        userData.firstName || "user",
         userData.username || `user_${userData.id}`,
         userData.id,
         il
