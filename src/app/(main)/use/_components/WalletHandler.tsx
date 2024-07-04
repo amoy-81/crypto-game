@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import CurrentCredit from "../../_components/CurrentCredit";
 import Modal from "@/app/_components/modal/Modal";
+import WalletReceive from "./WalletReceive";
+import WalletSend from "./WalletSend";
 
 export default function WalletHandler() {
   const [credit, setCredit] = useState(0);
@@ -29,11 +31,11 @@ export default function WalletHandler() {
       </div>
 
       <Modal showModal={showSend} setShowModal={setShowSend}>
-        Send
+        <WalletSend />
       </Modal>
 
       <Modal showModal={showReceive} setShowModal={setShowReceive}>
-        Receive
+        <WalletReceive />
       </Modal>
     </>
   );
