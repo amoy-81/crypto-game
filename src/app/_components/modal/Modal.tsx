@@ -33,7 +33,7 @@ export default function Modal({
       className={
         show
           ? " z-30 transition fixed bg-black/40 w-full h-screen top-0 left-0 opacity-1"
-          : " z-30 transition opacity-0"
+          : " opacity-0 w-0 transition fixed bg-black/40 h-screen top-0 left-0"
       }
     >
       <div className=" relative w-full h-full">
