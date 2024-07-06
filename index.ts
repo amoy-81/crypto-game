@@ -23,14 +23,17 @@ bot.onText(/\/start(.+)?/, async (msg: any, match: any) => {
 
   console.log(msg.from);
 
-  const jwtCode = encryptionUtil.encrypt({
+  const jsonPayload = {
     id: msg.from.id,
     username:
       msg.from.username && jsonAcceptable(msg.from.username)
         ? msg.from.username
         : `user-${msg.from.id}`.toLowerCase(),
     firstName: msg.from?.first_name?.toLowerCase() || "userr",
-  });
+  };
+
+  console.log("JSON => ", jsonPayload);
+  const jwtCode = encryptionUtil.encrypt(jsonPayload);
 
   const query = match[1] ? match[1].trim() : "null";
 
