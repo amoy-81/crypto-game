@@ -1,5 +1,6 @@
 import DiscriptionTexts from "./_components/DiscriptionTexts";
 import WalletHandler from "./_components/WalletHandler";
+import WalletHistory from "./_components/WalletHistory";
 
 export default function UsePage() {
   return (
@@ -9,6 +10,7 @@ export default function UsePage() {
       </h1>
       <WalletHandler />
       {/* <DiscriptionTexts /> */}
+      <WalletHistory />
     </section>
   );
 }

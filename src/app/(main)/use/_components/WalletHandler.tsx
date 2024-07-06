@@ -29,13 +29,6 @@ export default function WalletHandler() {
         >
           Receive
         </button>
-
-        <div>
-          <h1>5 Exchange history</h1>
-          <div className=" w-full flex justify-center">
-            <DiscriptionTexts fullText="comming soon..." />
-          </div>
-        </div>
       </div>
 
       <Modal showModal={showSend} setShowModal={setShowSend}>

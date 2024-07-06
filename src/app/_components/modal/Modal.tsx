@@ -32,8 +32,8 @@ export default function Modal({
       onClick={() => setShowModal(false)}
       className={
         show
-          ? " transition fixed bg-black/40 w-full h-screen top-0 left-0 opacity-1"
-          : " transition opacity-0"
+          ? " z-30 transition fixed bg-black/40 w-full h-screen top-0 left-0 opacity-1"
+          : " z-30 transition opacity-0"
       }
     >
       <div className=" relative w-full h-full">
