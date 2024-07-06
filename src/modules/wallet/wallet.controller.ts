@@ -63,6 +63,16 @@ class WalletController {
       next(error);
     }
   }
+
+  async history(req: any, res: Response, next: any) {
+    try {
+      const historys = await this.#walletService.getHistory(req.user.id);
+
+      return res.status(200).json(historys);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default new WalletController();

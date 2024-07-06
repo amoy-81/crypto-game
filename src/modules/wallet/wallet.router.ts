@@ -19,6 +19,12 @@ WalletRouter.post(
   walletController.createTransaction
 );
 
+WalletRouter.get(
+  "/history",
+  authGuard,
+  walletController.history
+);
+
 
 // for test
 WalletRouter.get("/e", (req: any, res: any) => {

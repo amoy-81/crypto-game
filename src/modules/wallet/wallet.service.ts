@@ -1,4 +1,3 @@
-import createHttpError from "http-errors";
 import userService, { changeUserCreditT } from "../user/user.service";
 import Transaction from "./models/transaction.model";
 
@@ -42,6 +41,18 @@ class WalletService {
   async getUser(id: string) {
     const user = await this.#userService.findById(id);
     return user;
+  }
+
+  async getHistory(id: string) {
+    const transactionsHistory = await this.#transactionModel
+      .find({
+        $or: [{ payer: id }, { receiver: id }],
+      })
+      .sort({ _id: -1 })
+      .limit(5)
+      .populate("payer", "-friends -t_id -il -__v")
+      .populate("receiver", "-friends -t_id -il -__v");
+    return transactionsHistory;
   }
 }
 
