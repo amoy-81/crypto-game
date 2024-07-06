@@ -11,18 +11,14 @@ class EncryptionUtil {
   }
 
   encrypt(object: any) {
-    const text = !isJson(object) ? JSON.stringify(object) : object;
-    const encrypted = encrypt(text, this.encryptionKey, this.salt);
+    const encrypted = encrypt(object, this.encryptionKey, this.salt);
     return encrypted;
   }
 
   decrypt(text: any) {
-    const textString: string = isJson(text) ? JSON.parse(text) : text;
-    const result = textString.replace("+", " ");
-    const decrypted = decrypt(result, this.encryptionKey, this.salt);
+    const decrypted = decrypt(text, this.encryptionKey, this.salt);
     console.warn("Decrypted =>", decrypted);
-    const decryptedVAl = isJson(decrypted) ? JSON.parse(decrypted) : decrypted;
-    return decryptedVAl;
+    return decrypted;
   }
 }
 
