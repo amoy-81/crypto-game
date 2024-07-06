@@ -34,7 +34,9 @@ class AuthService {
 
   // login
   async loginUser(token: string, il: string) {
-    const userData: any = encryptionUtil.decrypt(token);
+    const resultToken = token.replace(" ", "+");
+
+    const userData: any = encryptionUtil.decrypt(resultToken);
 
     const user = await this.#User.findOne({ t_id: userData.id });
 
