@@ -43,6 +43,8 @@ bot.onText(/\/start(.+)?/, async (msg: any, match: any) => {
 
   console.log(gameUrl);
 
+  console.log(encryptionUtil.decrypt(jwtCode));
+
   const opts = {
     reply_markup: {
       inline_keyboard: [
