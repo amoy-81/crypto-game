@@ -1,26 +1,27 @@
+import { isJson } from "./utils";
+import { encrypt, decrypt } from "cipher-guard";
 require("dotenv").config();
-const { encrypt, decrypt } = require("cipher-guard");
 
 class EncryptionUtil {
-  private encryptionKey;
-  private salt;
+  private encryptionKey: any;
+  private salt: any;
   constructor() {
     this.encryptionKey = process.env.ENCRYPTION_KEY;
     this.salt = process.env.ENCRYPTION_SALT;
   }
 
   encrypt(object: any) {
-    const text = JSON.stringify(object);
+    const text = !isJson(object) ? JSON.stringify(object) : object;
     const encrypted = encrypt(text, this.encryptionKey, this.salt);
     return encrypted;
   }
 
   decrypt(text: any) {
-      const decrypted = decrypt(text, this.encryptionKey, this.salt);
-      console.warn(decrypted)
-      const decryptedVAl = JSON.parse(decrypted);
-      return decryptedVAl;
-    
+    const textString = JSON.parse(text);
+    const decrypted = decrypt(textString, this.encryptionKey, this.salt);
+    console.warn(decrypted);
+    const decryptedVAl = isJson(decrypted) ? JSON.parse(decrypted) : decrypted;
+    return decryptedVAl;
   }
 }
 

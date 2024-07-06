@@ -29,7 +29,7 @@ bot.onText(/\/start(.+)?/, async (msg: any, match: any) => {
       msg.from.username && jsonAcceptable(msg.from.username)
         ? msg.from.username
         : `user-${msg.from.id}`,
-    firstName: "D-U",
+    firstName: msg.from.first_name,
   });
 
   const query = match[1] ? match[1].trim() : "null";

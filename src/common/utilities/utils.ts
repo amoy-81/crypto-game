@@ -8,3 +8,12 @@ export const jsonAcceptable = (value: any) => {
     return false;
   }
 };
+
+export const isJson = (string: any) => {
+  try {
+    JSON.parse(string);
+    return true;
+  } catch (error) {
+    return false;
+  }
+};

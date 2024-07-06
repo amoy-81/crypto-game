@@ -24,6 +24,8 @@ WalletRouter.post(
 WalletRouter.get("/e", (req: any, res: any) => {
   const nw = new Date().getTime() / 1000;
 
+  console.log(req.query)
+
   const en = encryptionUtil.encrypt({
     wallet: "6683f84b2b82dd4f938ca804",
     amount: 10,
