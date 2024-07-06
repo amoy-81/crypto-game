@@ -8,7 +8,7 @@ import {
   SuccessAlert,
 } from "@/app/_components/alerts/AlertMessage";
 
-export default function WalletSend() {
+export default function WalletSend({ setCredit }: { setCredit: any }) {
   const axios = useAxiosAuth();
   const [wallet, setWallet] = useState<string>("");
   const [amount, setAmount] = useState<any>(10);
@@ -50,6 +50,7 @@ export default function WalletSend() {
       })
       .then((res) => {
         setSuccessMessage(res?.data?.message || "Successful transfer :)");
+        setCredit(res?.data?.payerCreditChange?.currentCredit);
       })
       .catch((err) => setError(err?.response?.data?.message || "Send Failed!!"))
       .finally(() => setLoading(false));

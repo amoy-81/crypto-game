@@ -5,6 +5,7 @@ import CurrentCredit from "../../_components/CurrentCredit";
 import Modal from "@/app/_components/modal/Modal";
 import WalletReceive from "./WalletReceive";
 import WalletSend from "./WalletSend";
+import DiscriptionTexts from "./DiscriptionTexts";
 
 export default function WalletHandler() {
   const [credit, setCredit] = useState(0);
@@ -28,10 +29,17 @@ export default function WalletHandler() {
         >
           Receive
         </button>
+
+        <div>
+          <h1>5 Exchange history</h1>
+          <div className=" w-full flex justify-center">
+            <DiscriptionTexts fullText="comming soon..." />
+          </div>
+        </div>
       </div>
 
       <Modal showModal={showSend} setShowModal={setShowSend}>
-        <WalletSend />
+        <WalletSend setCredit={setCredit} />
       </Modal>
 
       <Modal showModal={showReceive} setShowModal={setShowReceive}>

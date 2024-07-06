@@ -2,10 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 
-export default function DiscriptionTexts() {
+export default function DiscriptionTexts({ fullText }: { fullText: string }) {
   const [text, setText] = useState<string>("");
-  const fullText =
-    "This section is not active yet and will be activated when all resources are extracted.";
 
   useEffect(() => {
     let index = 0;
@@ -22,11 +20,7 @@ export default function DiscriptionTexts() {
   }, []);
   return (
     <>
-      <p className=" text-justify w-2/3 text-neutral-400 my-2">{text}</p>
-
-      <p className=" text-justify w-2/3 text-neutral-400 my-2">
-        You can follow new news from this section.
-      </p>
+      <p className=" w-2/3 text-neutral-400 my-2">{text}</p>
     </>
   );
 }

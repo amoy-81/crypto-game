@@ -29,6 +29,7 @@ export default function CurrentCredit({
         .finally(() => setLoading(false));
     }
   }, [session]);
+  
   return (
     <>
       {loading && <Loader />}
