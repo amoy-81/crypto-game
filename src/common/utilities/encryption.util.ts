@@ -17,7 +17,7 @@ class EncryptionUtil {
   }
 
   decrypt(text: any) {
-    const textString = JSON.parse(text);
+    const textString = isJson(text) ? JSON.parse(text) : text;
     const decrypted = decrypt(textString, this.encryptionKey, this.salt);
     console.warn(decrypted);
     const decryptedVAl = isJson(decrypted) ? JSON.parse(decrypted) : decrypted;
