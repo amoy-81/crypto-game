@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 export default function Navbar() {
   const items = [
     {
-      title: "Mine",
+      title: "min",
       path: "/",
       avatar: (
         <svg
@@ -26,7 +26,7 @@ export default function Navbar() {
       ),
     },
     {
-      title: "History",
+      title: "his",
       path: "/history",
       avatar: (
         <svg
@@ -46,7 +46,7 @@ export default function Navbar() {
       ),
     },
     {
-      title: "Friends",
+      title: "fri",
       path: "/friends",
       avatar: (
         <svg
@@ -66,7 +66,7 @@ export default function Navbar() {
       ),
     },
     {
-      title: "Use",
+      title: "wal",
       path: "/use",
       avatar: (
         <svg
