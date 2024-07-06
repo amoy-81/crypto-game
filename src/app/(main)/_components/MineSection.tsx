@@ -124,7 +124,11 @@ export default function MineSection() {
             : " grayscale"
         } relative w-full flex justify-center p-12`}
       >
-        <Image src={CoinImage} alt="ccc" />
+        {isStartMine ? (
+          <Image src={CoinImage} alt="ccc" />
+        ) : (
+          <Image onClick={startMine} src={CoinImage} alt="ccc" />
+        )}
       </div>
 
       {isStartMine && (
