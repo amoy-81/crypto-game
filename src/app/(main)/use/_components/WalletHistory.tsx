@@ -20,15 +20,17 @@ export default async function WalletHistory() {
         <span className=" text-green-400">Increase</span>
       </div>
       <div className="w-full pb-2 sc overflow-y-scroll overflow-x-hidden flex flex-col gap-4">
-        {history.map((item: any) =>
+        {history.map((item: any, index: any) =>
           item?.payer?._id === session?.user?.id ? (
             <MineSubmission
+              key={index}
               type={MineSubmissionT.normal}
               name={item.receiver.username}
               amount={item.amount}
             />
           ) : (
             <MineSubmission
+              key={index}
               type={MineSubmissionT.commission}
               name={item.receiver.username}
               amount={item.amount}
