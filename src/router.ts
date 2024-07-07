@@ -4,6 +4,7 @@ import errorHandler from "./common/middlewares/errorHandler";
 import CoinRouter from "./modules/coin/coin.router";
 import FriendsRouter from "./modules/friends/friends.router";
 import WalletRouter from "./modules/wallet/wallet.router";
+import GoldRouter from "./modules/gold/gold.router";
 
 const router = express.Router();
 
@@ -11,6 +12,7 @@ router.use("/auth", AuthRouter);
 router.use("/coin", CoinRouter);
 router.use("/friends", FriendsRouter);
 router.use("/wallet", WalletRouter);
+router.use("/gold", GoldRouter);
 
 // if route not found
 router.use("*", (req, res, next) => {

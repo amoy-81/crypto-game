@@ -3,10 +3,12 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import router from "./src/router";
 import cors from "cors";
+import cron from "node-cron";
 
 import TelegramBot from "node-telegram-bot-api";
 import encryptionUtil from "./src/common/utilities/encryption.util";
 import { jsonAcceptable } from "./src/common/utilities/utils";
+import goldService from "./src/modules/gold/gold.service";
 
 dotenv.config();
 
@@ -84,6 +86,12 @@ app.use("/ping", (req: Request, res: any, next: any) => {
 });
 
 app.use("/api", router);
+
+cron.schedule("0 9 * * *", async () => {
+  const newPrice = await goldService.createPrice();
+
+  console.log("new Price is => ", newPrice);
+});
 
 app.listen(port, () => {
   console.log(
