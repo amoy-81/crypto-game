@@ -34,9 +34,8 @@ class AuthService {
 
   // login
   async loginUser(token: string, il: string) {
-    const resultToken = token.replace(" ", "+");
-
-    const userData: any = encryptionUtil.decrypt(resultToken);
+    const secret: any = process.env.BOT_JWT;
+    const userData: any = jwt.verify(token, secret);
 
     const user = await this.#User.findOne({ t_id: userData.id });
 

@@ -6,7 +6,7 @@ import cors from "cors";
 import cron from "node-cron";
 
 import TelegramBot from "node-telegram-bot-api";
-import encryptionUtil from "./src/common/utilities/encryption.util";
+import jwt from "jsonwebtoken";
 import { jsonAcceptable } from "./src/common/utilities/utils";
 import goldService from "./src/modules/gold/gold.service";
 
@@ -27,15 +27,14 @@ bot.onText(/\/start(.+)?/, async (msg: any, match: any) => {
 
   const jsonPayload = {
     id: msg.from.id,
-    username:
-      msg.from.username && jsonAcceptable(msg.from.username)
-        ? msg.from.username
-        : `user-${msg.from.id}`.toLowerCase(),
+    username: msg.from.username
+      ? msg.from.username
+      : `user-${msg.from.id}`.toLowerCase(),
     firstName: msg.from?.first_name?.toLowerCase() || "userr",
   };
 
-  console.log("JSON => ", jsonPayload);
-  const jwtCode = encryptionUtil.encrypt(jsonPayload);
+  const secretKeyJWT: any = process.env.BOT_JWT;
+  const jwtCode = jwt.sign(jsonPayload, secretKeyJWT);
 
   const query = match[1] ? match[1].trim() : "null";
 
@@ -44,8 +43,6 @@ bot.onText(/\/start(.+)?/, async (msg: any, match: any) => {
   }/auth/register?token=${jwtCode}&il=${query ? query : "null"}`;
 
   console.log(gameUrl);
-
-  console.log(encryptionUtil.decrypt(jwtCode));
 
   const opts = {
     reply_markup: {
