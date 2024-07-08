@@ -19,11 +19,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={kode_mono.className}>
-        <Head>
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
                 !function (t, e, n) {
                     t.yektanetAnalyticsObject = n, t[n] = t[n] || function () {
                         t[n].q.push(arguments)
@@ -35,9 +34,10 @@ export default function RootLayout({
                     s.src = "https://cdn.yektanet.com/rg_woebegone/scripts_v3/Wg9IQbNv/rg.complete.js?v=" + r, c.parentNode.insertBefore(s, c)
                 }(window, document, "yektanet");
               `,
-            }}
-          />
-        </Head>
+          }}
+        />
+      </head>
+      <body className={kode_mono.className}>
         <Providers>{children}</Providers>
       </body>
     </html>

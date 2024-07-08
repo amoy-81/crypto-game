@@ -39,7 +39,7 @@ export default async function History() {
           mineHistory?.map((item: any, index: any) => (
             <MineSubmission
               key={index}
-              name={item?.user?.username}
+              name={`${item?.user?.name}-${item?.user?.name[0]}`}
               amount={item?.amount}
               type={
                 item.type === "NORMAL_MINE"
