@@ -3,8 +3,10 @@
 import React, { useEffect, useState } from "react";
 import CopyBox from "../../friends/_components/CopyBox";
 import useAxiosAuth from "@/lib/hooks/useAxiosAuth";
+import { useSession } from "next-auth/react";
 
 export default function WalletReceive() {
+  const { data: session } = useSession();
   const axios = useAxiosAuth();
   const [link, setLink] = useState<string | null>(null);
 
@@ -20,8 +22,10 @@ export default function WalletReceive() {
   };
 
   useEffect(() => {
-    generateLink();
-  }, []);
+    if (session) {
+      generateLink();
+    }
+  }, [session]);
 
   return (
     <div>

@@ -1,9 +1,11 @@
 "use client";
 
 import useAxiosAuth from "@/lib/hooks/useAxiosAuth";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
 export default function CopyIl() {
+  const { data: session } = useSession();
   const axios = useAxiosAuth();
   const [link, setLink] = useState<string | null>(null);
   const [isCopy, setIsCopy] = useState<boolean>(false);
@@ -20,8 +22,10 @@ export default function CopyIl() {
   };
 
   useEffect(() => {
-    generateLink();
-  }, []);
+    if (session) {
+      generateLink();
+    }
+  }, [session]);
 
   const copyLink = () => {
     navigator.clipboard.writeText(link ? link : "D-coin").then(
