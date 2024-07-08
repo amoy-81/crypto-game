@@ -10,6 +10,7 @@ export default function page() {
       </h1>
       <CurrentPrice />
       <GoldChart />
+      <div id="pos-article-display-98274"></div>
     </>
   );
 }
