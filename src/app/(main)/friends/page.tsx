@@ -18,7 +18,6 @@ export default async function FriendsPage() {
         </div>
         <CopyIl />
       </div>
-      <div id="pos-article-text-98273"></div>
       <div className=" h-2/3 pb-2 sc overflow-y-scroll overflow-x-hidden flex flex-col gap-4">
         {friends?.map((item: any, index: any) => (
           <MineSubmission

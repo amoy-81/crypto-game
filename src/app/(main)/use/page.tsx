@@ -11,7 +11,6 @@ export default function UsePage() {
       <WalletHandler />
       {/* <DiscriptionTexts /> */}
       <WalletHistory />
-      <div id="pos-article-display-98274"></div>
     </section>
   );
 }
